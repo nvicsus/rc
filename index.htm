@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+
+ <style type="text/css"> 
+         input{ 
+         text-align:center;
+         
+         } 
+ </style> 
+      
+<meta charset="UTF-8">
+    <head>
+        
+<!-->
+<!- JAVA SCRIPT -->
+<!---->
+        <script>
+	
+			var Gauge=function(b){function l(a,b){for(var c in b)"object"==typeof b[c]&&"[object Array]"!==Object.prototype.toString.call(b[c])&&"renderTo"!=c?("object"!=typeof a[c]&&(a[c]={}),l(a[c],b[c])):a[c]=b[c]}function q(){z.width=b.width;z.height=b.height;A=z.cloneNode(!0);B=A.getContext("2d");C=z.width;D=z.height;t=C/2;u=D/2;f=t<u?t:u;A.i8d=!1;B.translate(t,u);B.save();a.translate(t,u);a.save()}function v(a){var b=new Date;G=setInterval(function(){var c=(new Date-b)/a.duration;1<c&&(c=1);var f=("function"==
+			typeof a.delta?a.delta:M[a.delta])(c);a.step(f);1==c&&clearInterval(G)},a.delay||10)}function k(){G&&clearInterval(G);var a=I-p,h=p,c=b.animation;v({delay:c.delay,duration:c.duration,delta:c.fn,step:function(b){p=parseFloat(h)+a*b;E.draw()}})}function e(a){return a*Math.PI/180}function g(b,h,c){c=a.createLinearGradient(0,0,0,c);c.addColorStop(0,b);c.addColorStop(1,h);return c}function n(){var m=93*(f/100),h=f-m,c=91*(f/100),e=88*(f/100),d=85*(f/100);a.save();b.glow&&(a.shadowBlur=h,a.shadowColor=
+			"rgba(0, 0, 0, 0.5)");a.beginPath();a.arc(0,0,m,0,2*Math.PI,!0);a.fillStyle=g("#ddd","#aaa",m);a.fill();a.restore();a.beginPath();a.arc(0,0,c,0,2*Math.PI,!0);a.fillStyle=g("#fafafa","#ccc",c);a.fill();a.beginPath();a.arc(0,0,e,0,2*Math.PI,!0);a.fillStyle=g("#eee","#f0f0f0",e);a.fill();a.beginPath();a.arc(0,0,d,0,2*Math.PI,!0);a.fillStyle=b.colors.plate;a.fill();a.save()}function w(a){var h=!1;a=0===b.majorTicksFormat.dec?Math.round(a).toString():a.toFixed(b.majorTicksFormat.dec);return 1<b.majorTicksFormat["int"]?
+			(h=-1<a.indexOf("."),-1<a.indexOf("-")?"-"+(b.majorTicksFormat["int"]+b.majorTicksFormat.dec+2+(h?1:0)-a.length)+a.replace("-",""):""+(b.majorTicksFormat["int"]+b.majorTicksFormat.dec+1+(h?1:0)-a.length)+a):a}function d(){var m=81*(f/100);a.lineWidth=2;a.strokeStyle=b.colors.majorTicks;a.save();if(0===b.majorTicks.length){for(var h=(b.maxValue-b.minValue)/5,c=0;5>c;c++)b.majorTicks.push(w(b.minValue+h*c));b.majorTicks.push(w(b.maxValue))}for(c=0;c<b.majorTicks.length;++c)a.rotate(e(45+c*(270/(b.majorTicks.length-
+			1)))),a.beginPath(),a.moveTo(0,m),a.lineTo(0,m-15*(f/100)),a.stroke(),a.restore(),a.save();b.strokeTicks&&(a.rotate(e(90)),a.beginPath(),a.arc(0,0,m,e(45),e(315),!1),a.stroke(),a.restore(),a.save())}function J(){var m=81*(f/100);a.lineWidth=1;a.strokeStyle=b.colors.minorTicks;a.save();for(var h=b.minorTicks*(b.majorTicks.length-1),c=0;c<h;++c)a.rotate(e(45+c*(270/h))),a.beginPath(),a.moveTo(0,m),a.lineTo(0,m-7.5*(f/100)),a.stroke(),a.restore(),a.save()}function s(){for(var m=55*(f/100),h=0;h<b.majorTicks.length;++h){var c=
+			F(m,e(45+h*(270/(b.majorTicks.length-1))));a.font=20*(f/200)+"px Arial";a.fillStyle=b.colors.numbers;a.lineWidth=0;a.textAlign="center";a.fillText(b.majorTicks[h],c.x,c.y+3)}}function x(a){var h=b.valueFormat.dec,c=b.valueFormat["int"];a=parseFloat(a);var f=0>a;a=Math.abs(a);if(0<h){a=a.toFixed(h).toString().split(".");h=0;for(c-=a[0].length;h<c;++h)a[0]="0"+a[0];a=(f?"-":"")+a[0]+"."+a[1]}else{a=Math.round(a).toString();h=0;for(c-=a.length;h<c;++h)a="0"+a;a=(f?"-":"")+a}return a}function F(a,b){var c=
+			Math.sin(b),f=Math.cos(b);return{x:0*f-a*c,y:0*c+a*f}}function N(){a.save();for(var m=81*(f/100),h=m-15*(f/100),c=0,g=b.highlights.length;c<g;c++){var d=b.highlights[c],r=(b.maxValue-b.minValue)/270,k=e(45+(d.from-b.minValue)/r),r=e(45+(d.to-b.minValue)/r);a.beginPath();a.rotate(e(90));a.arc(0,0,m,k,r,!1);a.restore();a.save();var l=F(h,k),n=F(m,k);a.moveTo(l.x,l.y);a.lineTo(n.x,n.y);var n=F(m,r),p=F(h,r);a.lineTo(n.x,n.y);a.lineTo(p.x,p.y);a.lineTo(l.x,l.y);a.closePath();a.fillStyle=d.color;a.fill();
+			a.beginPath();a.rotate(e(90));a.arc(0,0,h,k-0.2,r+0.2,!1);a.restore();a.closePath();a.fillStyle=b.colors.plate;a.fill();a.save()}}function K(){var m=12*(f/100),h=8*(f/100),c=77*(f/100),d=20*(f/100),k=4*(f/100),r=2*(f/100),n=function(){a.shadowOffsetX=2;a.shadowOffsetY=2;a.shadowBlur=10;a.shadowColor="rgba(188, 143, 143, 0.45)"};n();a.save();p=0>p?Math.abs(b.minValue-p):0<b.minValue?p-b.minValue:Math.abs(b.minValue)+p;a.rotate(e(45+p/((b.maxValue-b.minValue)/270)));a.beginPath();a.moveTo(-r,-d);a.lineTo(-k,
+			0);a.lineTo(-1,c);a.lineTo(1,c);a.lineTo(k,0);a.lineTo(r,-d);a.closePath();a.fillStyle=g(b.colors.needle.start,b.colors.needle.end,c-d);a.fill();a.beginPath();a.lineTo(-0.5,c);a.lineTo(-1,c);a.lineTo(-k,0);a.lineTo(-r,-d);a.lineTo(r/2-2,-d);a.closePath();a.fillStyle="rgba(255, 255, 255, 0.2)";a.fill();a.restore();n();a.beginPath();a.arc(0,0,m,0,2*Math.PI,!0);a.fillStyle=g("#f0f0f0","#ccc",m);a.fill();a.restore();a.beginPath();a.arc(0,0,h,0,2*Math.PI,!0);a.fillStyle=g("#e8e8e8","#f5f5f5",h);a.fill()}
+			function L(){a.save();a.font=40*(f/200)+"px Led";var b=x(y),h=a.measureText("-"+x(0)).width,c=f-33*(f/100),g=0.12*f;a.save();var d=-h/2-0.025*f,e=c-g-0.04*f,h=h+0.05*f,g=g+0.07*f,k=0.025*f;a.beginPath();a.moveTo(d+k,e);a.lineTo(d+h-k,e);a.quadraticCurveTo(d+h,e,d+h,e+k);a.lineTo(d+h,e+g-k);a.quadraticCurveTo(d+h,e+g,d+h-k,e+g);a.lineTo(d+k,e+g);a.quadraticCurveTo(d,e+g,d,e+g-k);a.lineTo(d,e+k);a.quadraticCurveTo(d,e,d+k,e);a.closePath();d=a.createRadialGradient(0,c-0.12*f-0.025*f+(0.12*f+0.045*f)/
+			2,f/10,0,c-0.12*f-0.025*f+(0.12*f+0.045*f)/2,f/5);d.addColorStop(0,"#888");d.addColorStop(1,"#666");a.strokeStyle=d;a.lineWidth=0.05*f;a.stroke();a.shadowBlur=0.012*f;a.shadowColor="rgba(0, 0, 0, 1)";a.fillStyle="#babab2";a.fill();a.restore();a.shadowOffsetX=0.004*f;a.shadowOffsetY=0.004*f;a.shadowBlur=0.012*f;a.shadowColor="rgba(0, 0, 0, 0.3)";a.fillStyle="#444";a.textAlign="center";a.fillText(b,-0,c);a.restore()}Gauge.Collection.push(this);this.config={renderTo:null,width:200,height:200,title:!1,
+			maxValue:100,minValue:0,majorTicks:[],minorTicks:10,strokeTicks:!0,units:!1,valueFormat:{"int":3,dec:2},majorTicksFormat:{"int":1,dec:0},glow:!0,animation:{delay:10,duration:250,fn:"cycle"},colors:{plate:"#fff",majorTicks:"#444",minorTicks:"#666",title:"#888",units:"#888",numbers:"#444",needle:{start:"rgba(240, 128, 128, 1)",end:"rgba(255, 160, 122, .9)"}},highlights:[{from:20,to:60,color:"#eee"},{from:60,to:80,color:"#ccc"},{from:80,to:100,color:"#999"}]};var y=0,E=this,p=0,I=0,H=!1;this.setValue=
+			function(a){p=b.animation?y:a;var d=(b.maxValue-b.minValue)/100;I=a>b.maxValue?b.maxValue+d:a<b.minValue?b.minValue-d:a;y=a;b.animation?k():this.draw();return this};this.setRawValue=function(a){p=y=a;this.draw();return this};this.clear=function(){y=p=I=this.config.minValue;this.draw();return this};this.getValue=function(){return y};this.onready=function(){};l(this.config,b);this.config.minValue=parseFloat(this.config.minValue);this.config.maxValue=parseFloat(this.config.maxValue);b=this.config;p=
+			y=b.minValue;if(!b.renderTo)throw Error("Canvas element was not specified when creating the Gauge object!");var z=b.renderTo.tagName?b.renderTo:document.getElementById(b.renderTo),a=z.getContext("2d"),A,C,D,t,u,f,B;q();this.updateConfig=function(a){l(this.config,a);q();this.draw();return this};var M={linear:function(a){return a},quad:function(a){return Math.pow(a,2)},quint:function(a){return Math.pow(a,5)},cycle:function(a){return 1-Math.sin(Math.acos(a))},bounce:function(a){a:{a=1-a;for(var b=0,
+			c=1;;b+=c,c/=2)if(a>=(7-4*b)/11){a=-Math.pow((11-6*b-11*a)/4,2)+Math.pow(c,2);break a}a=void 0}return 1-a},elastic:function(a){a=1-a;return 1-Math.pow(2,10*(a-1))*Math.cos(30*Math.PI/3*a)}},G=null;a.lineCap="round";this.draw=function(){if(!A.i8d){B.clearRect(-t,-u,C,D);B.save();var g={ctx:a};a=B;n();N();J();d();s();b.title&&(a.save(),a.font=24*(f/200)+"px Arial",a.fillStyle=b.colors.title,a.textAlign="center",a.fillText(b.title,0,-f/4.25),a.restore());b.units&&(a.save(),a.font=22*(f/200)+"px Arial",
+			a.fillStyle=b.colors.units,a.textAlign="center",a.fillText(b.units,0,f/3.25),a.restore());A.i8d=!0;a=g.ctx;delete g.ctx}a.clearRect(-t,-u,C,D);a.save();a.drawImage(A,-t,-u,C,D);if(Gauge.initialized)L(),K(),H||(E.onready&&E.onready(),H=!0);else var e=setInterval(function(){Gauge.initialized&&(clearInterval(e),L(),K(),H||(E.onready&&E.onready(),H=!0))},10);return this}};Gauge.initialized=!1;
+			(function(){var b=document,l=b.getElementsByTagName("head")[0],q=-1!=navigator.userAgent.toLocaleLowerCase().indexOf("msie"),v="@font-face {font-family: 'Led';src: url('http://smart-ip.net/styles/fonts/digital-7-mono."+(q?"eot":"ttf")+"');}",k=b.createElement("style");k.type="text/css";if(q)l.appendChild(k),l=k.styleSheet,l.cssText=v;else{try{k.appendChild(b.createTextNode(v))}catch(e){k.cssText=v}l.appendChild(k);l=k.styleSheet?k.styleSheet:k.sheet||b.styleSheets[b.styleSheets.length-1]}var g=setInterval(function(){if(b.body){clearInterval(g);
+			var e=b.createElement("div");e.style.fontFamily="Led";e.style.position="absolute";e.style.height=e.style.width=0;e.style.overflow="hidden";e.innerHTML=".";b.body.appendChild(e);setTimeout(function(){Gauge.initialized=!0;e.parentNode.removeChild(e)},250)}},1)})();Gauge.Collection=[];Gauge.Collection.get=function(b){if("string"==typeof b)for(var l=0,q=this.length;l<q;l++){if(this[l].config.renderTo.getAttribute("id")==b)return this[l]}else return"number"==typeof b?this[b]:null};
+			function domReady(b){window.addEventListener?window.addEventListener("DOMContentLoaded",b,!1):window.attachEvent("onload",b)}
+			domReady(function(){function b(b){for(var e=b[0],d=1,g=b.length;d<g;d++)e+=b[d].substr(0,1).toUpperCase()+b[d].substr(1,b[d].length-1);return e}for(var l=document.getElementsByTagName("canvas"),q=0,v=l.length;q<v;q++)if("canv-gauge"==l[q].getAttribute("data-type")){var k=l[q],e={},g,n=parseInt(k.getAttribute("width"),10),w=parseInt(k.getAttribute("height"),10);e.renderTo=k;n&&(e.width=n);w&&(e.height=w);n=0;for(w=k.attributes.length;n<w;n++)if(g=k.attributes.item(n).nodeName,"data-type"!=g&&"data-"==
+			g.substr(0,5)){var d=g.substr(5,g.length-5).toLowerCase().split("-");if(g=k.getAttribute(g))switch(d[0]){case "colors":d[1]&&(e.colors||(e.colors={}),"needle"==d[1]?(d=g.split(/\s+/),e.colors.needle=d[0]&&d[1]?{start:d[0],end:d[1]}:g):(d.shift(),e.colors[b(d)]=g));break;case "highlights":e.highlights||(e.highlights=[]);g=g.split(",");for(var d=0,J=g.length;d<J;d++){var s=g[d].replace(/^\s+|\s+$/g,"").split(/\s+/),x={};s[0]&&""!=s[0]&&(x.from=s[0]);s[1]&&""!=s[1]&&(x.to=s[1]);s[2]&&""!=s[2]&&(x.color=
+			s[2]);e.highlights.push(x)}break;case "animation":d[1]&&(e.animation||(e.animation={}),"fn"==d[1]&&/^\s*function\s*\(/.test(g)&&(g=eval("("+g+")")),e.animation[d[1]]=g);break;default:d=b(d);if("onready"==d)continue;if("majorTicks"==d)g=g.split(/\s+/);else if("strokeTicks"==d||"glow"==d)g="true"==g?!0:!1;else if("valueFormat"==d)if(g=g.split("."),2==g.length)g={"int":parseInt(g[0],10),dec:parseInt(g[1],10)};else continue;e[d]=g}}e=new Gauge(e);k.getAttribute("data-value")&&e.setRawValue(parseFloat(k.getAttribute("data-value")));
+			k.getAttribute("data-onready")&&(e.onready=function(){eval(this.config.renderTo.getAttribute("data-onready"))});e.draw()}});window.Gauge=Gauge;	
+			<!-- XML Handler ----------------------------------------------------------------------------------- -->		
+			
+			output1 =0 ;
+			var input1 = 0;
+			var input2 = 0;
+			var data_val1 = 0;
+			var data_val2 = 0;
+			var pwm_width = 128;
+			var sent_seq=0;
+			var received_seq=0;
+			var human_control=false;
+			
+			
+			
+			function GetArduinoIO()
+			{
+				nocache = "&nocache=" + Math.random() * 1000000;
+				
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function()
+				{
+					if (this.readyState == 4) 
+					{
+						if (this.status == 200) 
+						{
+							if (this.responseXML != null) 
+							{
+								// XML file received - contains analog values, switch values and LED states
+								// get sequence number
+									document.getElementsByClassName("sequence")[0] =
+										this.responseXML.getElementsByTagName('sequence')[0].childNodes[0].nodeValue;
+										received_seq = this.responseXML.getElementsByTagName('sequence')[0].childNodes[0].nodeValue;		
+								// get temperature 
+									document.getElementsByClassName("analog")[0] =
+										this.responseXML.getElementsByTagName('analog')[0].childNodes[0].nodeValue;
+										data_val1 = this.responseXML.getElementsByTagName('analog')[0].childNodes[0].nodeValue;		
+										
+								// get setpoint from controller
+									document.getElementsByClassName("analog")[1] =
+										this.responseXML.getElementsByTagName('analog')[1].childNodes[0].nodeValue;
+										if (! human_control) 	data_val2 = this.responseXML.getElementsByTagName('analog')[1].childNodes[0].nodeValue;								
+										
+								// relay input #1
+								if (this.responseXML.getElementsByTagName('input')[0].childNodes[0].nodeValue === "checked") 
+									document.getElementById("input1_sw").checked=true;
+								else document.getElementById("input1_sw").checked=false;
+								// relay input #2
+								if (this.responseXML.getElementsByTagName('input')[1].childNodes[0].nodeValue === "checked") 
+									document.getElementById("input2_sw").checked=true;
+								else document.getElementById("input2_sw").checked=false;
+							}
+						}
+					}
+				}
+				sent_seq++;
+				request.open("GET", "ajax_inputs" + "?seq=" + sent_seq.toString() + "@" + nocache, true);
+				request.send(null);
+			}
+			
+			function is_connection_alive()
+			{
+			document.getElementById("qwerty").value=sent_seq+" : "+received_seq;
+				
+		//	if (sent_seq > (received_seq+5)) {document.getElementById("qwerty").value="no connection";data_val1=0;document.getElementById("qwerty").style.color = "red";} 
+		//	else {document.getElementById("qwerty").value="connection alive";document.getElementById("qwerty").style.color = "black";};
+						
+			
+			}
+			function GetButton1()
+			{
+					LED3_state = 1;
+					strLED3 = "&LED3=1";
+					window.setTimeout(function resetLED3(){
+						LED3_state = 0;
+						strLED3 = "&LED3=0";			
+					}, pulse_width);
+			}
+		</script> <!-- JavaScript -->
+<!---------------------------------------------------------------------------------------------------->
+<!-- CSS --------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------->
+		<style>
+			* {
+				margin: 0;
+			}
+			html, body {
+				height: 100%;
+			}
+			.wrapper {
+				min-height: 100%;
+				height: auto !important;
+				height: 100%;
+				margin: 0 auto -4em;
+			}
+			.footer, .push {
+				padding: 13px 0px 13px 0px;		
+				bottom:0%;
+				background-color:black;
+				text-align:center;
+				font-size: 100%;
+				font:"Courier New", Courier, monospace;
+				color: white;
+			}
+			body {
+				background:
+				radial-gradient(black 15%, transparent 16%) 0 0,
+				radial-gradient(black 15%, transparent 16%) 8px 8px,
+				radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+				radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+				background-color:#282828;
+				background-size:16px 16px;
+		
+				margin: 0;				
+			}
+			.IO_box {
+				width: 233px;
+				height: 400px;
+				background-color:white;
+				float: left;
+				margin: 10px 18px 10px 0px;
+				padding: 0;
+				border: 0px solid blue;
+				border-radius:13px;
+			}
+			.skrif {
+				vertical-align: -25%;
+				color:#383838;
+				font-size: 11px;
+			}
+			.BoxContainer {
+				position: fixed;
+				top: 50%;
+				left:50%;
+				margin-top: -210px;
+				margin-left: -366px;
+			}
+			.redbuttonbox {
+				margin: 55px 22px 0 22px;
+			}
+			h1 {		
+				background-color:black;
+				text-align:center;
+				font-size: 120%;
+				font:"Courier New", Courier, monospace;
+				color: white;
+				padding: 0px 0 7px 0;			
+			}
+			.InTouchH1 {
+				color:#9BE52F;
+				font-size:220%;
+				margin-right:10px;
+			}
+			.InTouchH2 {
+				font-size:180%;
+				font-weight: normal;
+				vertical-align: text-top;
+				color:white;
+			}
+			h2 {
+				text-align: center;
+				font-size: 180%;
+				background-color:#24819B; 
+				border-radius:10px 10px 0px 0px;
+				padding: 23px 0 23px 0;
+				color: White;
+				margin: 0 0 1px 0;
+			}
+			h3 {
+				text-align: center;
+				font-size: 180%;
+				background-color:#F94E33;
+				border-radius:10px 10px 0px 0px;
+				padding: 23px 0 23px 0;
+				color: White;
+				margin: 0 0 10px 0;
+			}
+			p, form, button {
+				font-size: 80%;
+				color: #252525;
+			}
+			.small_text {
+				font-size: 70%;
+				color: #737373;
+			}
+			.StatusField {
+				width:204px;
+				margin: 12px 0 0px 7px;		
+				padding: 6px;
+			}	
+			.SwitchesField {
+				width:204px;
+				margin: 12px 0 0px 7px;
+				padding: 6px;
+			}					
+			
+			.SignalField {
+				width:204px;
+				margin: 12px 0 0px 7px;	
+				padding: 6px;				
+			}		
+			.FieldLabelText {
+				color: grey;
+				font-size: 60%;
+			}
+			
+			<!-- TOGGLE SWITCHES ------------------------------------------------------------------------------------------------>
+			.container > .switch {
+			  display: block;
+			  margin: 12px auto;
+			}
+			.slider{
+			width: 200px;
+			}			
+			
+			
+			.switch-wide,.switch-narrow {
+			  position: relative;
+			  display: inline-block;
+			  vertical-align: top;
+			  
+			  height: 18px;
+			  padding: 3px;
+			  background-color: white;
+			  border-radius: 18px;
+			  box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+			  cursor: pointer;
+			  background-image: -webkit-linear-gradient(top, #eeeeee, white 25px);
+			  background-image: -moz-linear-gradient(top, #eeeeee, white 25px);
+			  background-image: -o-linear-gradient(top, #eeeeee, white 25px);
+			  background-image: linear-gradient(to bottom, #eeeeee, white 25px);
+			  margin: 1px 0px 1px 0px;
+			}
+			.switch-wide
+			{
+			  width: 90px;
+			}
+			.switch-narrow
+			{
+			  width: 70px;
+			}
+		  
+			
+			.switch-input {
+			  position: absolute;
+			  top: 0;
+			  left: 0;
+			  opacity: 0;
+			}
+
+			.switch-label {
+			  position: relative;
+			  display: block;
+			  height: inherit;
+			  font-size: 10px;
+			  text-transform: uppercase;
+			  background: #eceeef;
+			  border-radius: inherit;
+			  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+			  -webkit-transition: 0.15s ease-out;
+			  -moz-transition: 0.15s ease-out;
+			  -o-transition: 0.15s ease-out;
+			  transition: 0.15s ease-out;
+			  -webkit-transition-property: opacity background;
+			  -moz-transition-property: opacity background;
+			  -o-transition-property: opacity background;
+			  transition-property: opacity background;
+			}
+			.switch-label:before, .switch-label:after {
+			  position: absolute;
+			  top: 50%;
+			  margin-top: -.5em;
+			  line-height: 1;
+			  -webkit-transition: inherit;
+			  -moz-transition: inherit;
+			  -o-transition: inherit;
+			  transition: inherit;
+			}
+			.switch-label:before {
+			  content: attr(data-off);
+			  right: 11px;
+			  color: grey;
+			  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+			}
+
+			.switch-label:after {
+			  content: attr(data-on);
+			  left: 11px;
+			  color: white;
+			  text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+			  opacity: 0;
+			}
+			.switch-input:checked ~ .switch-label {
+			  background: #47a8d8;
+			  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+			}
+			.switch-input:checked ~ .switch-label:before {
+			  opacity: 0;
+			}
+			.switch-input:checked ~ .switch-label:after {
+			  opacity: 1;
+			}
+			
+			.switch-handle, .switch-handle-wide {
+			  position: absolute;
+			  top: 4px;
+			  left: 4px;
+			  width: 18px;
+			  height: 16px;
+			  background: white;
+			  border-radius: 10px;
+			  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+			  background-image: -webkit-linear-gradient(top, white 40%, #f0f0f0);
+			  background-image: -moz-linear-gradient(top, white 40%, #f0f0f0);
+			  background-image: -o-linear-gradient(top, white 40%, #f0f0f0);
+			  background-image: linear-gradient(to bottom, white 40%, #f0f0f0);
+			  -webkit-transition: left 0.15s ease-out;
+			  -moz-transition: left 0.15s ease-out;
+			  -o-transition: left 0.15s ease-out;
+			  transition: left 0.15s ease-out;
+			}
+			.switch-handle:before {
+			  content: '';
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  margin: -6px 0 0 -6px;
+			  width: 12px;
+			  height: 12px;
+			  background: #f9f9f9;
+			  border-radius: 6px;
+			  box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+			  background-image: -webkit-linear-gradient(top, #eeeeee, white);
+			  background-image: -moz-linear-gradient(top, #eeeeee, white);
+			  background-image: -o-linear-gradient(top, #eeeeee, white);
+			  background-image: linear-gradient(to bottom, #eeeeee, white);
+			}
+			.switch-input:checked ~ .switch-handle {
+			  left: 55px;
+			  box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+			}
+			.switch-input:checked ~ .switch-handle-wide {
+			  left: 75px;
+			  box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+			}
+			
+		
+			.switch-green > .switch-input:checked ~ .switch-label {
+			  background: #4fb845;
+			}
+
+
+			<!---->
+			.button {
+			   margin: 5px 2px 5px 0px;
+			   width: 120px;
+			   border-top: 1px solid #96d1f8;
+			   background: black;
+			   background: -webkit-gradient(linear, left top, left bottom, from(#47a8d8), to(#24819B));
+			   background: -webkit-linear-gradient(top, #47a8d8, #24819B);
+			   background: -moz-linear-gradient(top, #47a8d8, #24819B);
+			   background: -ms-linear-gradient(top, #47a8d8, #24819B);
+			   background: -o-linear-gradient(top, #47a8d8, #24819B);
+			   padding: 2px 8px;
+			   -webkit-border-radius: 8px;
+			   -moz-border-radius: 8px;
+			   border-radius: 8px;
+			   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+			   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+			   box-shadow: rgba(0,0,0,1) 0 0px 0;
+			   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+			   color: white;
+			   font-size: 10px;
+			   font-family: Georgia, Serif;
+			   text-decoration: none;
+			   vertical-align: middle;
+			   }
+			.button:hover {
+			   border-top-color: #4299d4;
+			   background: #4299d4;
+			   color: white;
+			   }
+			.button:active {
+			   border-top-color: #24819B;
+			   background: #24819B;
+			   }
+			   
+			.buttonred {
+			   margin: 5px 2px 5px 0px;
+			   width: 90px; height:90px;
+			   border-top: 1px solid #FB7A66;
+			   background: black;
+			   background: -webkit-gradient(linear, left top, left bottom, from(#FB674F), to(#F94E33));
+			   background: -webkit-linear-gradient(top, #FB674F, #F94E33);
+			   background: -moz-linear-gradient(top, #FB674F, #F94E33);
+			   background: -ms-linear-gradient(top, #FB674F, #F94E33);
+			   background: -o-linear-gradient(top, #FB674F, #F94E33);
+			   padding: 4px 8px;
+			   -webkit-border-radius: 8px;
+			   -moz-border-radius: 8px;
+			   border-radius: 8px;
+			   -webkit-box-shadow: rgba(1,0,0,0) 0 1px 0;
+			   -moz-box-shadow: rgba(1,0,0,0) 0 1px 0;
+			   box-shadow: rgba(1,0,0,0) 0 0px 0;
+			   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+			   color: white;
+			   font-size: 100%;
+			   font-family: Georgia, Serif;
+			   text-decoration: none;
+			   vertical-align: middle;
+			   }
+			.buttonred:hover {
+			   border-top-color: #F94E33;
+			   background: #F94E33;
+			   color: white;
+			   }
+			.buttonred:active {
+			   border-top-color: #F94E33;
+			   background: #F94E33;
+			   }
+			   
+
+			<!---->
+			.gaugestyle1 {
+				padding: 5px 0 0 5px;
+				float:left;
+			}
+			.gaugestyle2 {
+				padding: 0 5px 5px 0;
+				float:right;
+			}
+			.analog{
+				float: right;
+				font-size: 1%;
+				color:white;
+			}
+		</style>
+    </head>
+<!---------------------------------------------------------------------------------------------------->
+<!-- HTML -------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------->	  
+    <body onload="start()">
+		<div class="wrapper">
+        <h1> <span class="InTouchH1"><em>Умный дом</em></span>      <span class="InTouchH2"><I>измерение и управление</I></span> </h1>
+		<div class="BoxContainer">    
+			<div class="IO_box">	
+				<h2>Управление</h2>
+					<fieldset class="SwitchesField"> 	
+					<legend class="FieldLabelText">Выключатели</legend>
+						<form id="check_IOs" name="IO_form"> 
+							
+							<label class="switch-narrow">                            
+								<input type="checkbox" name="output1" value="0" onclick="GetCheck()" class="switch-input"/>
+								<span class="switch-label" data-on="Вкл" data-off="Выкл"></span>
+								<span class="switch-handle"></span>   
+							</label> <span class="skrif">Обогрев</span>
+							<br>
+								<label class="switch-narrow">                            
+								<input type="checkbox" name="output2" value="0" onclick="GetCheck()" class="switch-input"/>
+								<span class="switch-label" data-on="Вкл" data-off="Выкл"></span>
+								<span class="switch-handle"></span>
+							</label> <span class="skrif">Освещение</span>							
+							<input class="slider" type="range" name="brightness" min="0" max="255" oninput="sldr1()" step="1" id="slider1">
+							 <span><button class ="button" type="button" onclick="set_pwm()">Установить ШИМ </button> </span>
+						</form>
+				
+					</fieldset>
+									
+					<fieldset class="SignalField"> 
+					<legend class="FieldLabelText" style="margin-left:12px; padding-left:1px;"> ИК команды </legend>            
+					<table border="0" cellspacing="0" cellpadding="0" width = "201" align="left" style="padding:0 0 0 3px; margin:0px;">
+					
+											
+						<tr><label class="switch-narrow">                            
+								<input type="checkbox" name="ir" id="ir1" value="0" onclick="SendIR()" class="switch-input"/>
+								<span class="switch-label" data-on="Вкл" data-off="Выкл"></span>
+								<span class="switch-handle"></span>   
+							</label> <span class="skrif">Кондиционер</span> </tr>
+						
+										
+					</table>
+					</fieldset>                      
+					<fieldset class="StatusField"> 
+					<legend class="FieldLabelText">Состояние</legend>  
+					
+							<span class="skrif">Датчик 1</span>	
+								<label class="switch-narrow">                            
+								<input type="checkbox" id="input1_sw"  onclick="return false" class="switch-input"/>
+								<span class="switch-label" data-on="Вкл" data-off="Выкл"></span>
+								<span class="switch-handle"></span>			
+								</label> 
+					
+							<br>
+							<span class="skrif">Датчик 2</span>	
+								<label class="switch-narrow">                            
+								<input type="checkbox" id="input2_sw"  onclick="return false" class="switch-input"/>
+								<span class="switch-label" data-on="Вкл" data-off="Выкл"></span>
+								<span class="switch-handle"></span>
+								</label> 
+					
+							
+							
+					</fieldset>	
+					
+			</div>  
+			
+			
+<!--  ---------------------------- handle the changing of setpoint --------------------------------   -->
+<script type="text/javascript">
+
+function start()
+{
+
+setInterval('GetArduinoIO()',3000);
+setInterval('is_connection_alive()',3000);
+}
+
+// wether checkbox checked/unchecked
+function GetCheck()
+{
+		
+output=0;
+if (IO_form.output1.checked) 
+	{
+		output = output | 0x01;
+	}
+	else 
+	{
+		output = output & 0xFE;
+	}
+	if (IO_form.output2.checked) 
+	{
+		output = output | 0x02;
+	}
+	else {
+		output = output & 0xFD;
+	    }
+nocache = "&nocache=" + Math.random() * 1000000;
+var req_on_off = new XMLHttpRequest();
+req_on_off.open("POST", "?cmd=s@?par=" + output2 + nocache, true);
+req_on_off.send(null);
+	    
+}
+
+function SendIR()
+{
+nocache = "&nocache=" + Math.random() * 1000000;
+var req_ir = new XMLHttpRequest();
+if (document.getElementById("ir1").checked)  {req_ir.open("POST", "?cmd=i@?par=1@" + nocache, true);} else {req_ir.open("POST", "?cmd=i@?par=0@" + nocache, true);}
+req_ir.send(null);
+}
+
+
+function sldr1()
+{
+pwm_width=document.getElementById("slider1").value;
+}
+
+function set_pwm()
+{
+nocache = "&nocache=" + Math.random() * 1000000;
+var req_pwm = new XMLHttpRequest();
+req_pwm.open("POST", "?cmd=w@?par=" + pwm_width + "@" + nocache, true);
+req_pwm.send(null);
+}			
+
+function sldr2(){
+human_control=true;
+gauge_set.setValue(document.getElementById("slider2").value);
+setTimeout('end_of_human_control()',10000);
+}
+
+function end_of_human_control(){
+human_control=false;
+}
+
+
+function set_point()
+{
+nocache = "&nocache=" + Math.random() * 1000000;
+var setpoint_request = new XMLHttpRequest();
+setpoint_request.open("POST", "?cmd=u@?par="+document.getElementById("slider2").value+"@"+nocache, true);
+setpoint_request.send(null);
+
+}
+
+
+
+
+
+</script>
+
+
+			
+
+<!--  ---------------------------- indoor panel-------------------------------------------------   -->
+			
+<div class="IO_box">
+<h2>Температура</h2>
+<canvas id="gauge">
+<script>
+var gauge_int = new Gauge({
+	renderTo    : 'gauge',
+	width       : 225,
+	height      : 275,
+	valueFormat	: 2,
+	glow        : true,
+	units       : '°C',
+	title       : 'текущая t°',
+	minValue    : 0,
+	maxValue    : 50,
+	majorTicks  : ['0','5','10','15','20','25','30','35','40','45','50'],
+	minorTicks  : 5,
+	strokeTicks : false,
+	highlights  : [
+		{ from : 0, to : 18, color : 'rgba(0,   0, 255, .3)' },
+		{ from : 18, to : 25, color : 'rgba(100,   255, 0, .3)' },
+		{ from : 25, to : 50, color : 'rgba(255, 0, 0, .3)' }
+	],
+	colors      : {
+		plate      : '#f5f5f5',
+		majorTicks : '#000',
+		minorTicks : '#222',
+		title      : '#222',
+		units      : '#666',
+		numbers    : '#222',
+		needle     : { start : 'rgba(240, 128, 128, 1)', end : 'rgba(255, 160, 122, .9)' }
+	},
+	animation : {
+		delay : 25,
+		duration: 500,
+		fn : 'bounce'
+	}
+});
+
+gauge_int.onready = function() 
+{
+	setInterval( function() {gauge_int.setValue(data_val1);}, 1000);
+};
+gauge_int.draw();
+
+</script>
+</canvas>
+<div align="center"><p> <span><input  type="text"  id="qwerty"></span> </p></div>
+    
+</div> 
+
+<!--  ---------------------------- setpoint panel-------------------------------------------------   -->
+	
+<div class="IO_box">
+<h2>Уставка</h2>
+<canvas id="gauge2">
+<script>
+var gauge_set = new Gauge({
+	renderTo    : 'gauge2',
+	width       : 225,
+	height      : 200,
+	valueFormat	: 2,
+	glow        : true,
+	units       : '°C',
+	title       : 'желаемая t°',
+	minValue    : 0,
+	maxValue    : 50,
+	majorTicks  : ['0','5','10','15','20','25','30','35','40','45','50'],
+	minorTicks  : 5,
+	strokeTicks : false,
+	highlights  : [
+		{ from : 0, to : 18, color : 'rgba(0,   0, 255, .3)' },
+		{ from : 18, to : 25, color : 'rgba(100,   255, 0, .3)' },
+		{ from : 25, to : 50, color : 'rgba(255, 0, 0, .3)' }
+	],
+	colors      : {
+		plate      : '#f5f5f5',
+		majorTicks : '#000',
+		minorTicks : '#222',
+		title      : '#222',
+		units      : '#666',
+		numbers    : '#222',
+		needle     : { start : 'rgba(240, 128, 128, 1)', end : 'rgba(255, 160, 122, .9)' }
+	},
+	animation : {
+		delay : 25,
+		duration: 500,
+		fn : 'bounce'
+	}
+});
+
+gauge2.onready = function() {
+	setInterval( function() {gauge2.setValue(data_val2);}, 1000);
+};
+gauge_set.draw();
+
+
+block()
+{
+}
+
+</script>
+
+</canvas>
+
+
+<fieldset class="SignalField">
+<legend class="FieldLabelText" align="center""> << меньше
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+больше>></legend>
+<input class="slider" type="range" name="setpoint_slider" min="0" max="50" oninput="sldr2()" step="1" id="slider2">
+
+ <table border="0" cellspacing="0" cellpadding="0" width = "201" align="left" style="padding:0 0 0 3px; margin:0px;">
+<tr><td align = "center"><button class="button" id="setpoint_button" type="button" onclick="set_point()">Установить</button></td></tr>
+</table>
+</fieldset>
+
+</div>
+	
+
+	
+	
+    </div class="push"></div>
+	<div class="footer">
+        <p>
+        <tr><label  class="switch-wide">                            
+								<input type="checkbox"  name ="block" id="block" value="0"  onclick="block()"  class="switch-input"   />
+								<span class="switch-label" data-on="Блок." data-off="Разблок."></span>
+								<span class="switch-handle-wide" ></span>   
+							</label> </tr>
+        
+    </div>
+</body>
+</html>
+
